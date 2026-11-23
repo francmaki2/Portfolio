@@ -324,31 +324,82 @@ function Projects({ openApp }: { openApp: OpenApp }) {
 
 const certificates = [
   {
-    name: "Responsive Web Design",
-    issuer: "freeCodeCamp",
-    date: "Jun 2025",
-    skills: ["Semantic HTML", "CSS", "Accessibility"],
-    initials: "fcc",
-    tone: "iris",
-    href: "https://www.freecodecamp.org/learn/2022/responsive-web-design/",
-  },
-  {
-    name: "Introduction to Computer Science",
-    issuer: "HarvardX · CS50",
-    date: "Dec 2024",
-    skills: ["Algorithms", "C", "Python"],
-    initials: "CS50",
-    tone: "peach",
-    href: "https://cs50.harvard.edu/x/",
-  },
-  {
-    name: "GitHub Foundations",
-    issuer: "GitHub",
-    date: "Aug 2025",
-    skills: ["Git", "Pull Requests", "Collaboration"],
-    initials: "GH",
+    name: "SAP Certified - SAP Build Developer",
+    issuer: "SAP",
+    date: "Jul 17, 2026",
+    skills: ["SAP Build", "Process Automation", "APIs"],
+    initials: "SAP",
     tone: "mint",
-    href: "https://resources.github.com/learn/certifications/",
+    pdf: "/certificates/sap-build-developer.pdf",
+    href: "https://www.credly.com/badges/a0d23c57-4a48-4236-843e-804980c71fff",
+    credentialId: "",
+    expires: "Jul 18, 2027",
+    type: "Professional certification",
+  },
+  {
+    name: "PMI Project Management Ready",
+    issuer: "Project Management Institute",
+    date: "Mar 18, 2026",
+    skills: ["Project Management", "Agile", "Business Analysis"],
+    initials: "PMI",
+    tone: "iris",
+    pdf: "/certificates/pmi-project-management-ready.pdf",
+    href: "",
+    credentialId: "4wrw-XMpP",
+    expires: "Mar 18, 2031",
+    type: "Professional certification",
+  },
+  {
+    name: "Information Technology Specialist - Python",
+    issuer: "Certiport",
+    date: "Jul 16, 2025",
+    skills: ["Python", "Programming"],
+    initials: "Py",
+    tone: "peach",
+    pdf: "/certificates/its-python.pdf",
+    href: "",
+    credentialId: "CMEx-uT6C",
+    expires: "Jul 16, 2030",
+    type: "Professional certification",
+  },
+  {
+    name: "Complete Guide to Android Development with Kotlin for Beginners",
+    issuer: "LinkedIn Learning",
+    date: "Nov 18, 2025",
+    skills: ["Kotlin", "Android Development"],
+    initials: "Kt",
+    tone: "mint",
+    pdf: "/certificates/android-kotlin.pdf",
+    href: "https://www.linkedin.com/learning/certificates/9c81dd6bb4d2f7b18a89cc3ab9c1b1f16d847ae14c495760563794c56bbc3bc0",
+    credentialId: "",
+    expires: "",
+    type: "Course completion",
+  },
+  {
+    name: "Using Git with Visual Studio Code",
+    issuer: "LinkedIn Learning",
+    date: "Oct 27, 2025",
+    skills: ["Git", "Visual Studio Code"],
+    initials: "Git",
+    tone: "iris",
+    pdf: "/certificates/git-vscode.pdf",
+    href: "https://www.linkedin.com/learning/certificates/41c198250d2e52f12e65370794133910f7d90b68c56e895cec5b750c01400484",
+    credentialId: "",
+    expires: "",
+    type: "Course completion",
+  },
+  {
+    name: "Learning MATLAB",
+    issuer: "LinkedIn Learning",
+    date: "Oct 3, 2025",
+    skills: ["MATLAB"],
+    initials: "MAT",
+    tone: "peach",
+    pdf: "/certificates/learning-matlab.pdf",
+    href: "https://www.linkedin.com/learning/certificates/1b75f84279eb0e3fd40545e9a30c87af8efd3e279f65cd89a9b4396f3a49b5f9",
+    credentialId: "",
+    expires: "",
+    type: "Course completion",
   },
 ];
 
@@ -358,7 +409,7 @@ function Certifications() {
       <PanelHeading
         kicker="Learning record"
         title="Certifications"
-        description="Sample credentials showing how completed courses and certifications can be presented."
+        description="Six earned credentials and completed courses. Open a certificate to view the original PDF, or follow its verification link."
       />
       <div className="certificate-grid">
         {certificates.map((cert) => (
@@ -369,35 +420,28 @@ function Certifications() {
                 <i />
                 <i />
                 <i />
-                <span>
-                  <Icon name="star" size={13} />
-                </span>
+                <span><Icon name="star" size={13} /></span>
               </div>
             </div>
             <div className="certificate-copy">
-              <span className="example-label">Example credential</span>
+              <span className="example-label">{cert.type}</span>
               <h3>{cert.name}</h3>
-              <p>
-                {cert.issuer} · {cert.date}
-              </p>
+              <p>{cert.issuer} · {cert.date}</p>
+              {cert.expires && <p>Expires: {cert.expires}</p>}
+              {cert.credentialId && <p>Credential ID: {cert.credentialId}</p>}
               <Tags items={cert.skills} />
-              <a
-                className="text-action"
-                href={cert.href}
-                target="_blank"
-                rel="noreferrer"
-                title="Opens the issuer's course or certification page"
-              >
-                View Credential <Icon name="external" size={14} />
+              <a className="text-action" href={cert.pdf} target="_blank" rel="noopener noreferrer">
+                View Certificate PDF <Icon name="external" size={14} />
               </a>
+              {cert.href && (
+                <a className="text-action" href={cert.href} target="_blank" rel="noopener noreferrer">
+                  Verify Credential <Icon name="external" size={14} />
+                </a>
+              )}
             </div>
           </article>
         ))}
       </div>
-      <p className="sample-note">
-        <Icon name="info" size={15} /> Dates are illustrative. Links lead to issuer information, not
-        personal verification records.
-      </p>
     </div>
   );
 }
