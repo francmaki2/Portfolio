@@ -2309,3 +2309,10 @@
 .upcoming-banner h3{font-size:24px;margin:10px 0 6px;color:#fff;}
 .upcoming-banner p{color:#e0e7ff;margin:0;}
 @media(max-width:600px){.upcoming-card-art{height:160px;padding:18px}}
+
+/* Native PDF viewer in Resume.app */
+.resume-pdf-container {display:flex;flex-direction:column;gap:8px;min-height:0;padding:12px;}
+.resume-pdf-frame {display:block;width:100%;min-height:440px;flex:1;border:0;border-radius:8px;background:white;}
+.resume-pdf-fallback {margin:0;text-align:center;color:var(--soft);font-size:12px;}
+.resume-pdf-fallback a {color:var(--primary);text-decoration:underline;}
+.panel-actions a.panel-button {display:inline-flex;align-items:center;gap:7px;text-decoration:none;}
