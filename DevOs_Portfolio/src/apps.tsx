@@ -250,11 +250,13 @@ function About() {
   return (
     <div className="panel-page about-page">
       <div className="profile-header">
-        <div className="profile-avatar" aria-label="Profile initials">
-          {PORTFOLIO_NAME.split(" ")
-            .map((part) => part[0])
-            .join("")}
-        </div>
+        <img
+          className="profile-avatar"
+          src="/profile-photo.webp"
+          alt="Portrait of Franc Marcus Hermogenes"
+          width={77}
+          height={77}
+        />
         <PanelHeading
           kicker="Developer profile"
           title={PORTFOLIO_NAME}

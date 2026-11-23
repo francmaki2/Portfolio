@@ -2320,3 +2320,12 @@
 /* Contact app: spacing for multiple contact methods */
 .contact-links { display: grid; gap: 9px; }
 .contact-card .panel-button { flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; }
+
+/* About Me: professional headshot */
+.profile-avatar {
+  display: block;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 35%;
+  background: var(--surface, #e5e7eb);
+}
