@@ -406,7 +406,7 @@ function About() {
   return (
     <div className="panel-page about-page">
       <div className="profile-header">
-        <div className="profile-avatar" aria-label="Profile photo placeholder">
+        <div className="profile-avatar" aria-label="Profile initials">
           {PORTFOLIO_NAME.split(" ")
             .map((part) => part[0])
             .join("")}
@@ -414,57 +414,61 @@ function About() {
         <PanelHeading
           kicker="Developer profile"
           title={PORTFOLIO_NAME}
-          description="Computer science student · Aspiring software developer"
+          description="Computer Science student · Software Engineering specialization"
         />
       </div>
       <p className="profile-intro">
-        I enjoy turning vague problems into software people can use. I’m looking for an internship
-        where I can contribute to a team, learn from code reviews, and get better at shipping
-        reliable features.
+        Hi, I'm Franc! I'm a Computer Science student specializing in Software Engineering at
+        FEU Institute of Technology. I enjoy building practical software solutions, exploring
+        algorithms, and working with databases to solve real-world problems. My experience
+        spans Python, Java, C++, PostgreSQL, MySQL, and Git, as well as database management
+        and technical troubleshooting. I'm seeking a software development internship where
+        I can contribute to a team and continue growing as an engineer.
       </p>
       <div className="about-facts">
         <section>
           <Icon name="book" />
           <h3>Education</h3>
           <p>
-            B.S. in Computer Science
+            BS Computer Science, specializing in Software Engineering
             <br />
-            Example University · Expected 2027
+            FEU Institute of Technology · 2023–Present
+            <br />
+            Dean's Lister
           </p>
         </section>
         <section>
           <Icon name="code" />
-          <h3>Interests</h3>
-          <p>Accessible interfaces, practical APIs, and tools that make development easier.</p>
+          <h3>Technical Interests</h3>
+          <p>Software engineering, backend development, databases, algorithms, and optimization.</p>
         </section>
       </div>
-      <h3 className="section-title">Learning timeline</h3>
+      <h3 className="section-title">Experience &amp; milestones</h3>
       <ol className="timeline">
         <li>
-          <time>2025</time>
+          <time>2026</time>
           <div>
-            <strong>Built full-stack prototypes</strong>
-            <p>Connected React interfaces to Node.js APIs and relational databases.</p>
+            <strong>Built an algorithm-driven shift scheduling system</strong>
+            <p>Developed a web-based system using layered architecture, greedy scheduling,
+              backtracking, heuristics, and a genetic algorithm.</p>
           </div>
         </li>
         <li>
-          <time>2024</time>
+          <time>2023–Present</time>
           <div>
-            <strong>Focused on the web</strong>
-            <p>Practiced responsive layouts, accessibility, and collaborative Git workflows.</p>
+            <strong>Studying Computer Science at FEU Institute of Technology</strong>
+            <p>Specializing in Software Engineering; recognized as a Dean's Lister.</p>
           </div>
         </li>
         <li>
-          <time>2023</time>
+          <time>2022–2024</time>
           <div>
-            <strong>Started computer science studies</strong>
-            <p>Learned programming fundamentals and data structures with Python.</p>
+            <strong>Database &amp; Administrative Assistant · Frostbyte Car Airconditioning</strong>
+            <p>Maintained customer databases and records, supported reporting with Excel,
+              and provided basic IT troubleshooting.</p>
           </div>
         </li>
       </ol>
-      <p className="sample-note">
-        <Icon name="info" size={15} /> Education and timeline details are examples.
-      </p>
     </div>
   );
 }
