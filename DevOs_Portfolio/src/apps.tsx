@@ -76,6 +76,7 @@ const projectNav = [
 function Projects({ openApp }: { openApp: OpenApp }) {
   const [filter, setFilter] = useState("All Projects");
   const [detail, setDetail] = useState(false);
+  const [upcoming, setUpcoming] = useState(false);
   const [tab, setTab] = useState<"overview" | "demo" | "architecture" | "results">("overview");
   const scroll = useRef<HTMLElement>(null);
   useEffect(() => { if (scroll.current) scroll.current.scrollTop = 0; }, [filter, detail, tab]);
@@ -83,12 +84,23 @@ function Projects({ openApp }: { openApp: OpenApp }) {
   return <div className="finder">
     <aside className="finder-sidebar" aria-label="Project categories">
       <span className="sidebar-heading">Favorites</span>
-      {projectNav.map(({ text, icon }) => <button key={text} className={text === filter ? "current" : ""} aria-pressed={text === filter} onClick={() => { setFilter(text); setDetail(false); }}><Icon name={icon} size={16}/>{text}</button>)}
+      {projectNav.map(({ text, icon }) => <button key={text} className={text === filter ? "current" : ""} aria-pressed={text === filter} onClick={() => { setFilter(text); setDetail(false); setUpcoming(false); }}><Icon name={icon} size={16}/>{text}</button>)}
       <span className="sidebar-heading finder-secondary">Repositories</span>
       <button onClick={() => openApp("github")}><Icon name="github" size={16}/> GitHub</button>
     </aside>
     <section className="finder-main" ref={scroll}>
-      {detail ? <>
+      {detail && upcoming ? <>
+        <button className="text-action" onClick={() => { setDetail(false); setUpcoming(false); }}><Icon name="back" size={16}/> Back to projects</button>
+        <PanelHeading kicker="Upcoming project · Planning stage" title="Adaptive AI Study Platform" description="An AI-powered personalized study workspace designed to adapt to each student's learning progress."/>
+        <div className="upcoming-banner"><span>COMING SOON</span><h3>Learn smarter. Improve continuously.</h3><p>Project concept — not yet a released application.</p></div>
+        <Tags items={["Next.js (planned)", "TypeScript (planned)", "PostgreSQL (planned)", "LLM API (planned)", "RAG (planned)"]}/>
+        <div className="detail-text">
+          <section><h3>The idea</h3><p>A personalized learning platform that identifies knowledge gaps, generates tailored quizzes, and recommends what to study next based on performance and learning history.</p></section>
+          <section><h3>Planned features</h3><p>Adaptive quizzes, progress tracking, personalized study recommendations, and an AI tutor grounded in relevant study materials through retrieval-augmented generation (RAG).</p></section>
+          <section><h3>Proposed architecture</h3><p>Next.js and TypeScript for the application, PostgreSQL for learning data, and an existing LLM API with a RAG pipeline for study-material-aware assistance. This stack is a proposal and may change during development.</p></section>
+          <section><h3>Project status</h3><p>In planning. No demo, public repository, or completed functionality is available yet.</p></section>
+        </div>
+      </> : detail ? <>
         <button className="text-action" onClick={() => setDetail(false)}><Icon name="back" size={16}/> Back to projects</button>
         <PanelHeading kicker="Featured thesis · 2026 · Full-stack developer" title="VisionCore" description="Smart Scheduling. Stronger Teams. An intelligent web-based scheduling and absence replacement system."/>
         <Tags items={["Full-stack", "Scheduling", "Greedy", "Backtracking", "Heuristics", "Genetic Algorithm"]}/>
@@ -104,7 +116,7 @@ function Projects({ openApp }: { openApp: OpenApp }) {
         {tab === "results" && <div className="vision-content"><div className="vision-stats"><div><strong>13.11s</strong><span>Weekly schedule generation in the reported test</span></div><div><strong>92.86%</strong><span>Automated absence replacement success</span></div><div><strong>76.99%</strong><span>Manual replacement comparison</span></div><div><strong>26 → 4</strong><span>Unfilled shifts (84.62% reduction)</span></div><div><strong>7.47 → 3.26</strong><span>Workload standard deviation</span></div><div><strong>50</strong><span>System evaluation participants</span></div></div><p className="sample-note">Figures are reported thesis evaluation results, not guarantees of performance in every scheduling scenario. Presentation slides contain differing evaluation averages (3.83/5 and 4.10/5), so neither is shown as a definitive overall score here.</p></div>}
       </> : <>
         <PanelHeading kicker="Project explorer" title={filter} description={visible ? "Featured software engineering work and thesis case studies." : "Backend implementation details are available within the VisionCore case study."}/>
-        {visible && <div className="project-grid"><button className="project-card" onClick={() => { setDetail(true); setTab("overview"); }}><div className="vision-card-image"><img src="/visioncore/poster.png" alt="VisionCore project poster"/></div><div className="project-copy"><div className="project-title"><h3>VisionCore</h3><Icon name="chevron" size={16}/></div><p>Full-stack intelligent shift scheduling, absence replacement, and workload balancing.</p><Tags items={["Full-stack", "Algorithms", "Thesis · 2026"]}/></div></button></div>}
+        {visible && <div className="project-grid"><button className="project-card" onClick={() => { setUpcoming(false); setDetail(true); setTab("overview"); }}><div className="vision-card-image"><img src="/visioncore/poster.png" alt="VisionCore project poster"/></div><div className="project-copy"><div className="project-title"><h3>VisionCore</h3><Icon name="chevron" size={16}/></div><p>Full-stack intelligent shift scheduling, absence replacement, and workload balancing.</p><Tags items={["Full-stack", "Algorithms", "Thesis · 2026"]}/></div></button>{filter !== "Featured" && <button className="project-card" onClick={() => { setUpcoming(true); setDetail(true); }}><div className="upcoming-card-art"><span className="upcoming-card-mark">✦</span><span className="upcoming-card-label">COMING SOON</span><strong>Adaptive AI<br/>Study Platform</strong></div><div className="project-copy"><div className="project-title"><h3>Adaptive AI Study Platform</h3><Icon name="chevron" size={16}/></div><p>Personalized quizzes, knowledge-gap analysis, and AI-guided study recommendations.</p><Tags items={["Upcoming", "AI / RAG", "Full-stack (planned)"]}/></div></button>}</div>}
       </>}
     </section>
   </div>;
