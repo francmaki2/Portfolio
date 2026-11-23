@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AppIcon, Icon, type AppId } from "./icons";
-import { PORTFOLIO_NAME, SAMPLE_EMAIL, SAMPLE_RESUME_FILENAME } from "./profile";
+import { PORTFOLIO_NAME, CONTACT_EMAIL, RESUME_FILENAME } from "./profile";
 
 const firstName = PORTFOLIO_NAME.split(" ")[0];
 const terminalPrompt = `${firstName.toLowerCase()}@devos ~ %`;
@@ -33,7 +33,7 @@ export const APPS: { id: AppId; name: string; description: string; keywords: str
   {
     id: "resume",
     name: "Resume",
-    description: "Preview, download, or print the sample résumé",
+    description: "Preview, download, or print my résumé",
     keywords: "cv pdf education experience",
   },
   {
@@ -51,7 +51,7 @@ export const APPS: { id: AppId; name: string; description: string; keywords: str
   {
     id: "github",
     name: "GitHub",
-    description: "Explore reference repositories",
+    description: "Explore my GitHub profile",
     keywords: "git version control open source",
   },
 ];
@@ -308,8 +308,7 @@ function About() {
           <time>2022–2024</time>
           <div>
             <strong>Database &amp; Administrative Assistant · Frostbyte Car Airconditioning</strong>
-            <p>Maintained customer databases and records, supported reporting with Excel,
-              and provided basic IT troubleshooting.</p>
+            <p>Maintained and verified customer records and digital files, prepared Excel-based expense trackers and reporting, supported audit documentation, and provided basic software and hardware troubleshooting in a hybrid role in Bulacan.</p>
           </div>
         </li>
       </ol>
@@ -318,53 +317,26 @@ function About() {
 }
 
 const skillGroups = [
-  {
-    name: "Programming Languages",
-    icon: "code",
-    items: [
-      ["JS", "JavaScript", "#f5d463"],
-      ["TS", "TypeScript", "#74b6ff"],
-      ["Py", "Python", "#72c8e4"],
-      ["SQL", "SQL", "#b9abff"],
-    ],
-  },
-  {
-    name: "Frontend Development",
-    icon: "globe",
-    items: [
-      ["react", "React", "#75dcf6"],
-      ["5", "HTML5", "#ffa77a"],
-      ["#", "CSS", "#78a8ff"],
-      ["tailwind", "Tailwind CSS", "#6fe6eb"],
-    ],
-  },
-  {
-    name: "Backend Development",
-    icon: "server",
-    items: [
-      ["⬡", "Node.js", "#91d88b"],
-      ["Ex", "Express", "#b3adc1"],
-      ["↔", "REST APIs", "#a9a6ff"],
-    ],
-  },
-  {
-    name: "Databases",
-    icon: "grid",
-    items: [
-      ["Pg", "PostgreSQL", "#88b4ef"],
-      ["SL", "SQLite", "#96dfff"],
-    ],
-  },
-  {
-    name: "Developer Tools",
-    icon: "branch",
-    items: [
-      ["git", "Git", "#fc9a83"],
-      ["github", "GitHub", "#c7adff"],
-      ["><", "VS Code", "#7ac5ff"],
-      [">_", "Terminal", "#90dfae"],
-    ],
-  },
+  { name: "Programming Languages", icon: "code", items: [
+    ["Py", "Python", "#72c8e4"], ["J", "Java", "#f0aa73"], ["C++", "C++", "#9bbcff"],
+    ["SQL", "SQL", "#b9abff"],
+  ] },
+  { name: "Databases & Data", icon: "grid", items: [
+    ["Pg", "PostgreSQL", "#88b4ef"], ["My", "MySQL", "#7bc4d6"],
+    ["Acc", "Microsoft Access", "#e5a5bd"], ["XL", "Microsoft Excel", "#90d6ac"],
+  ] },
+  { name: "Development & Version Control", icon: "branch", items: [
+    ["git", "Git", "#fc9a83"], ["github", "GitHub", "#c7adff"],
+    ["><", "Visual Studio Code", "#7ac5ff"], ["Rail", "Railway", "#b8b6f3"],
+  ] },
+  { name: "Additional Training & Tools", icon: "server", items: [
+    ["Kt", "Kotlin / Android fundamentals", "#c6a4ff"],
+    ["MAT", "MATLAB fundamentals", "#ffae85"],
+    ["SAP", "SAP Build", "#85c7fa"],
+    ["365", "Microsoft Office", "#efae8b"],
+    ["GW", "Google Workspace", "#9dc8ff"],
+    ["Adobe", "Adobe Creative Suite", "#e9a5b1"],
+  ] },
 ];
 
 function TechMark({ mark }: { mark: string }) {
@@ -402,7 +374,7 @@ function TechStack() {
       <PanelHeading
         kicker="Developer toolkit"
         title="Tech Stack"
-        description="Languages and tools used across the sample projects and coursework."
+        description="Languages, databases, development tools, and technologies documented in my résumé and training."
       />
       <div className="skills-list">
         {skillGroups.map((group) => (
@@ -429,59 +401,29 @@ function TechStack() {
 }
 
 const resumeSections = [
-  {
-    title: "Profile",
-    rows: [
-      {
-        heading: "",
-        description:
-          "Computer science student seeking a software development internship. Interested in accessible web applications, reliable APIs, and collaborative engineering.",
-      },
-    ],
-  },
-  {
-    title: "Education",
-    rows: [
-      {
-        heading: "Example University | B.S. Computer Science",
-        description:
-          "Expected 2027. Coursework: data structures, algorithms, databases, and web development.",
-      },
-    ],
-  },
-  {
-    title: "Example Projects",
-    rows: [
-      {
-        heading: "TaskFlow | React, TypeScript, Tailwind CSS",
-        description:
-          "Designed a responsive Kanban board with reusable components and a typed task model.",
-      },
-      {
-        heading: "Pulse API | Node.js, Express, PostgreSQL",
-        description: "Designed a REST service with input validation and weekly activity summaries.",
-      },
-    ],
-  },
-  {
-    title: "Technical Skills",
-    rows: [
-      {
-        heading: "",
-        description:
-          "JavaScript, TypeScript, Python, SQL, React, HTML, CSS, Node.js, Express, PostgreSQL, and Git.",
-      },
-    ],
-  },
+  { title: "Professional Summary", rows: [
+    { heading: "", description: "Computer Science student specializing in Software Engineering, with programming, database management, and technical troubleshooting experience. Seeking a software development internship." },
+  ] },
+  { title: "Education", rows: [
+    { heading: "FEU Institute of Technology | BS Computer Science", description: "Software Engineering specialization | 2023–Present | Dean's Lister." },
+  ] },
+  { title: "Professional Experience", rows: [
+    { heading: "Database & Administrative Assistant | Frostbyte Car Airconditioning", description: "2022–2024 | Maintained customer databases and digital records, created Excel-based financial trackers, supported document accuracy and reporting, and performed basic IT troubleshooting." },
+  ] },
+  { title: "Featured Project", rows: [
+    { heading: "VisionCore | Web-based scheduling system | 2026", description: "Full-stack thesis project using layered architecture, greedy scheduling, backtracking, heuristics, and genetic algorithms for workload fairness and absence replacement." },
+  ] },
+  { title: "Technical Skills", rows: [
+    { heading: "", description: "Python, Java, C++, PostgreSQL, MySQL, Microsoft Access, Git, GitHub, Railway, Microsoft Office, Google Workspace." },
+  ] },
 ];
 
 export function ResumeSheet() {
   return (
     <article className="resume-paper">
-      <span className="resume-example">Sample résumé</span>
       <h2>{PORTFOLIO_NAME}</h2>
-      <p className="resume-role">Software Development Intern Candidate</p>
-      <p className="resume-address">{SAMPLE_EMAIL}</p>
+      <p className="resume-role">Computer Science Student | Software Engineering</p>
+      <p className="resume-address">{CONTACT_EMAIL}</p>
       {resumeSections.map(({ title, rows }) => (
         <section key={title}>
           <h3>{title}</h3>
@@ -493,60 +435,9 @@ export function ResumeSheet() {
           ))}
         </section>
       ))}
+      <p className="resume-address">For the complete résumé, open /resume.pdf.</p>
     </article>
   );
-}
-
-function downloadResume() {
-  const escape = (text: string) => text.replace(/[()\\]/g, "\\$&");
-  const line = (text: string, y: number, size: number, bold = false) =>
-    `BT /${bold ? "F2" : "F1"} ${size} Tf 54 ${y} Td (${escape(text)}) Tj ET\n`;
-  let contents =
-    "0.12 0.15 0.25 rg\n" +
-    line("SAMPLE RESUME", 732, 9, true) +
-    line(PORTFOLIO_NAME, 696, 29, true) +
-    line("Software Development Intern Candidate", 673, 12, true) +
-    line(SAMPLE_EMAIL, 654, 10);
-  let y = 619;
-  for (const section of resumeSections) {
-    contents += line(section.title.toUpperCase(), y, 11, true);
-    y -= 19;
-    for (const { heading, description } of section.rows) {
-      if (heading) {
-        contents += line(heading, y, 11, true);
-        y -= 15;
-      }
-      const lines = description.match(/.{1,88}(?:\s|$)|\S+/g) ?? [];
-      for (const part of lines) {
-        contents += line(part.trim(), y, 10);
-        y -= 14;
-      }
-      y -= 7;
-    }
-    y -= 14;
-  }
-  const objects = [
-    "<< /Type /Catalog /Pages 2 0 R >>",
-    "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
-    "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>",
-    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
-    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>",
-    `<< /Length ${contents.length} >>\nstream\n${contents}endstream`,
-  ];
-  let pdf = "%PDF-1.4\n";
-  const offsets = objects.map((object, index) => {
-    const offset = pdf.length;
-    pdf += `${index + 1} 0 obj\n${object}\nendobj\n`;
-    return offset;
-  });
-  const xref = pdf.length;
-  pdf += `xref\n0 7\n0000000000 65535 f \n${offsets.map((offset) => `${String(offset).padStart(10, "0")} 00000 n \n`).join("")}trailer\n<< /Size 7 /Root 1 0 R >>\nstartxref\n${xref}\n%%EOF`;
-  const url = URL.createObjectURL(new Blob([pdf], { type: "application/pdf" }));
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = SAMPLE_RESUME_FILENAME;
-  link.click();
-  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 function Resume() {
@@ -555,23 +446,20 @@ function Resume() {
       <div className="resume-toolbar">
         <span className="resume-filename">
           <AppIcon id="resume" size={24} />{" "}
-          <span>
-            {SAMPLE_RESUME_FILENAME} <small>1 page · Sample</small>
-          </span>
+          <span>{RESUME_FILENAME}<small>Official résumé · PDF</small></span>
         </span>
         <div className="panel-actions">
-          <button className="panel-button" onClick={() => window.print()}>
-            <Icon name="print" size={16} />
-            Print
-          </button>
-          <button className="panel-button primary" onClick={downloadResume}>
-            <Icon name="download" size={16} />
-            Download PDF
-          </button>
+          <a className="panel-button" href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+            <Icon name="print" size={16} /> Open / Print
+          </a>
+          <a className="panel-button primary" href="/resume.pdf" download={RESUME_FILENAME}>
+            <Icon name="download" size={16} /> Download PDF
+          </a>
         </div>
       </div>
-      <div className="resume-scroll">
-        <ResumeSheet />
+      <div className="resume-scroll resume-pdf-container">
+        <iframe className="resume-pdf-frame" src="/resume.pdf#toolbar=0" title="Franc Marcus Hermogenes résumé PDF preview" />
+        <p className="resume-pdf-fallback">PDF preview not available? <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">Open the résumé in a new tab.</a></p>
       </div>
     </div>
   );
@@ -579,7 +467,7 @@ function Resume() {
 
 function Contact({ openApp }: { openApp: OpenApp }) {
   const [copyStatus, setCopyStatus] = useState("");
-  const email = SAMPLE_EMAIL;
+  const email = CONTACT_EMAIL;
   return (
     <div className="panel-page contact-page">
       <AppIcon id="contact" size={64} />
