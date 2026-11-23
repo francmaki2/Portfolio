@@ -468,45 +468,74 @@ function Resume() {
 function Contact({ openApp }: { openApp: OpenApp }) {
   const [copyStatus, setCopyStatus] = useState("");
   const email = CONTACT_EMAIL;
+  const phone = "+63 961 557 3163";
+  const phoneHref = "tel:+639615573163";
+  const linkedin = "https://ph.linkedin.com/in/franc-marcus-hermogenes-32b0b6381";
+  const facebook = "https://www.facebook.com/francmarcus.hermogenes";
+
+  async function copyValue(value: string, label: string) {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopyStatus(`${label} copied.`);
+    } catch {
+      setCopyStatus("Clipboard unavailable. Please select and copy the contact detail.");
+    }
+  }
+
   return (
     <div className="panel-page contact-page">
       <AppIcon id="contact" size={64} />
       <PanelHeading
         kicker="Contact"
         title="Let’s connect."
-        description="Interested in working together? I’m open to software developer internships and conversations about early-career engineering."
+        description="I'm open to software development internships, collaboration, and professional connections."
       />
-      <div className="contact-card">
-        <Icon name="mail" size={22} />
-        <div>
-          <small>Example email address</small>
-          <a href={`mailto:${email}`}>{email}</a>
+      <div className="contact-links">
+        <div className="contact-card">
+          <Icon name="mail" size={22} />
+          <div>
+            <small>Email</small>
+            <a href={`mailto:${email}`}>{email}</a>
+          </div>
+          <button className="panel-button" aria-label="Copy email address" onClick={() => copyValue(email, "Email address")}>
+            <Icon name="copy" size={17} />
+          </button>
         </div>
-        <button
-          className="panel-button"
-          aria-label="Copy example email address"
-          onClick={async () => {
-            try {
-              await navigator.clipboard.writeText(email);
-              setCopyStatus("Copied example address.");
-            } catch {
-              setCopyStatus("Clipboard unavailable. You can select and copy the address above.");
-            }
-          }}
-        >
-          <Icon name={copyStatus.startsWith("Copied") ? "check" : "copy"} size={17} />
-        </button>
+        <div className="contact-card">
+          <Icon name="phone" size={22} />
+          <div>
+            <small>Phone</small>
+            <a href={phoneHref}>{phone}</a>
+          </div>
+          <button className="panel-button" aria-label="Copy phone number" onClick={() => copyValue(phone, "Phone number")}>
+            <Icon name="copy" size={17} />
+          </button>
+        </div>
+        <div className="contact-card">
+          <Icon name="linkedin" size={22} />
+          <div>
+            <small>LinkedIn</small>
+            <a href={linkedin} target="_blank" rel="noopener noreferrer">Franc Marcus Hermogenes</a>
+          </div>
+          <a className="panel-button" href={linkedin} target="_blank" rel="noopener noreferrer" aria-label="Open LinkedIn profile">
+            <Icon name="external" size={17} />
+          </a>
+        </div>
+        <div className="contact-card">
+          <Icon name="facebook" size={22} />
+          <div>
+            <small>Facebook</small>
+            <a href={facebook} target="_blank" rel="noopener noreferrer">Franc Marcus Hermogenes</a>
+          </div>
+          <a className="panel-button" href={facebook} target="_blank" rel="noopener noreferrer" aria-label="Open Facebook profile">
+            <Icon name="external" size={17} />
+          </a>
+        </div>
       </div>
-      <p className="copy-status" role="status">
-        {copyStatus}
-      </p>
+      <p className="copy-status" role="status">{copyStatus}</p>
       <button className="text-action" onClick={() => openApp("github")}>
-        <Icon name="github" size={17} /> Browse GitHub references <Icon name="arrow" size={15} />
+        <Icon name="github" size={17} /> View my GitHub <Icon name="arrow" size={15} />
       </button>
-      <p className="sample-note">
-        <Icon name="info" size={15} /> Replace the example address with your own before sharing this
-        portfolio.
-      </p>
     </div>
   );
 }
