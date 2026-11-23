@@ -2282,3 +2282,20 @@
     border: 0;
   }
 }
+
+/* VisionCore featured case study */
+.vision-tabs {display:flex;gap:7px;flex-wrap:wrap;margin:20px 0 14px;}
+.vision-tabs button {padding:9px 14px;border:1px solid var(--line);border-radius:10px;background:var(--subtle);color:var(--soft);font-size:13px;}
+.vision-tabs button.selected {background:var(--primary);color:#fff;border-color:var(--primary-border);}
+.vision-content {display:grid;gap:16px;padding-bottom:22px;color:var(--soft);}
+.vision-content h3 {font-weight:700;color:var(--fg);font-size:16px;margin-bottom:7px;}
+.vision-content p {line-height:1.6;}
+.vision-poster {display:block;width:min(100%,440px);max-height:560px;object-fit:contain;object-position:left center;border-radius:13px;background:var(--card);}
+.vision-video {display:block;width:100%;max-height:440px;border-radius:13px;background:#000;}
+.vision-card-image {height:210px;background:linear-gradient(135deg,#0e315f,#4e92eb);display:flex;justify-content:center;overflow:hidden;}
+.vision-card-image img {width:100%;height:100%;object-fit:cover;object-position:center 35%;}
+.vision-stats {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;}
+.vision-stats>div {padding:18px;border-radius:12px;background:var(--card);border:1px solid var(--line);display:grid;gap:7px;}
+.vision-stats strong {font-size:24px;color:var(--fg);}
+.vision-stats span {font-size:12px;line-height:1.5;color:var(--muted);}
+@media(max-width:600px){.vision-stats{grid-template-columns:1fr}.vision-card-image{height:160px}}

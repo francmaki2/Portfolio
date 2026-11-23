@@ -9,7 +9,7 @@ export const APPS: { id: AppId; name: string; description: string; keywords: str
   {
     id: "projects",
     name: "Projects",
-    description: "Explore example software projects",
+    description: "Explore software engineering projects",
     keywords: "finder work demo web backend",
   },
   {
@@ -56,137 +56,14 @@ export const APPS: { id: AppId; name: string; description: string; keywords: str
   },
 ];
 
-const projects = [
-  {
-    id: "taskflow",
-    name: "TaskFlow",
-    category: "Web Applications",
-    featured: true,
-    tone: "iris",
-    summary: "A focused Kanban workspace for planning and tracking team projects.",
-    tags: ["React", "TypeScript", "Tailwind CSS"],
-    problem:
-      "Small teams need to see what is in progress without creating more work to manage the tracker.",
-    solution: "A three-column board that makes ownership and task state visible at a glance.",
-    implementation:
-      "A typed data model separates cards from columns. React state holds card updates, and reusable components keep the screen consistent across desktop and mobile.",
-    repo: "https://github.com/wekan/wekan",
-    reference: "Wekan",
-    demoLabel: "Move the first task",
-    demoResult: "Moved “Design onboarding” to In progress.",
-  },
-  {
-    id: "pulse",
-    name: "Pulse API",
-    category: "Backend",
-    featured: true,
-    tone: "mint",
-    summary: "A REST API for logging and summarizing personal activity data.",
-    tags: ["Node.js", "Express", "PostgreSQL"],
-    problem: "Activity data collected across different tools is hard to summarize consistently.",
-    solution: "A single API for creating activity records and retrieving weekly summaries.",
-    implementation:
-      "An Express router validates incoming records and delegates database calls to a persistence layer. PostgreSQL indexes organization and date columns to keep summary queries predictable.",
-    repo: "https://github.com/expressjs/express",
-    reference: "Express",
-    demoLabel: "Run sample request",
-    demoResult: "200 OK · GET /activities/summary · 3 activities returned.",
-  },
-  {
-    id: "campus",
-    name: "Campus Compass",
-    category: "Web Applications",
-    featured: false,
-    tone: "peach",
-    summary: "A campus resource directory with searchable listings and filters.",
-    tags: ["React", "TypeScript", "CSS"],
-    problem:
-      "Students often need to visit several sites to find office hours, services, and campus resources.",
-    solution:
-      "A searchable directory that groups resources by purpose and keeps common details together.",
-    implementation:
-      "A static directory is filtered using normalized text and category tags. Semantic controls make filter changes usable by keyboard and screen reader.",
-    repo: "https://github.com/TanStack/table",
-    reference: "TanStack Table",
-    demoLabel: "Filter for study spaces",
-    demoResult: "2 matches · North Library and Learning Commons.",
-  },
-];
-
-type Project = (typeof projects)[number];
 type OpenApp = (id: AppId) => void;
 
 function Tags({ items }: { items: string[] }) {
-  return (
-    <div className="tags">
-      {items.map((item) => (
-        <span key={item}>{item}</span>
-      ))}
-    </div>
-  );
+  return <div className="tags">{items.map(item => <span key={item}>{item}</span>)}</div>;
 }
 
-function PanelHeading({
-  kicker,
-  title,
-  description,
-}: {
-  kicker: string;
-  title: string;
-  description: string;
-}) {
-  return (
-    <header className="panel-heading">
-      <span className="panel-kicker">{kicker}</span>
-      <h2>{title}</h2>
-      <p>{description}</p>
-    </header>
-  );
-}
-
-function ProjectPreview({ project, active = false }: { project: Project; active?: boolean }) {
-  return (
-    <div
-      className={`project-preview ${project.tone}`}
-      aria-label={`${project.name} example interface`}
-    >
-      <div className="mock-frame">
-        <div className="mock-chrome">
-          <i />
-          <i />
-          <i />
-          <b>{project.name}</b>
-        </div>
-        {project.id === "taskflow" ? (
-          <div className="mock-board">
-            {["To do", "In progress", "Done"].map((column, index) => (
-              <div key={column}>
-                <b>{column}</b>
-                {index === (active ? 1 : 0) && <span className="mock-task">Design onboarding</span>}
-                <span />
-                <span className="mock-short" />
-              </div>
-            ))}
-          </div>
-        ) : project.id === "pulse" ? (
-          <div className="mock-code">
-            <b>GET</b> /activities/summary
-            <br />
-            <span>{active ? "200 OK" : "// Activity service"}</span>
-            <br />
-            {'{ "activities": 3, "week": 46 }'}
-          </div>
-        ) : (
-          <div className="mock-directory">
-            <b>{active ? "Study spaces" : "Campus resources"}</b>
-            <span />
-            <span />
-            <span />
-          </div>
-        )}
-      </div>
-    </div>
-  );
+function PanelHeading({ kicker, title, description }: { kicker: string; title: string; description: string }) {
+  return <header className="panel-heading"><span className="panel-kicker">{kicker}</span><h2>{title}</h2><p>{description}</p></header>;
 }
 
 const projectNav = [
@@ -198,128 +75,39 @@ const projectNav = [
 
 function Projects({ openApp }: { openApp: OpenApp }) {
   const [filter, setFilter] = useState("All Projects");
-  const [detail, setDetail] = useState<Project | null>(null);
-  const [demo, setDemo] = useState(false);
+  const [detail, setDetail] = useState(false);
+  const [tab, setTab] = useState<"overview" | "demo" | "architecture" | "results">("overview");
   const scroll = useRef<HTMLElement>(null);
-  const visible = projects.filter(
-    (project) =>
-      filter === "All Projects" ||
-      (filter === "Featured" ? project.featured : project.category === filter),
-  );
-  useEffect(() => {
-    if (scroll.current) scroll.current.scrollTop = 0;
-  }, [filter, detail]);
-
-  return (
-    <div className="finder">
-      <aside className="finder-sidebar" aria-label="Project categories">
-        <span className="sidebar-heading">Favorites</span>
-        {projectNav.map(({ text, icon }) => (
-          <button
-            key={text}
-            className={text === filter ? "current" : ""}
-            aria-pressed={text === filter}
-            onClick={() => {
-              setFilter(text);
-              setDetail(null);
-            }}
-          >
-            <Icon name={icon} size={16} />
-            {text}
-          </button>
-        ))}
-        <span className="sidebar-heading finder-secondary">Repositories</span>
-        <button onClick={() => openApp("github")}>
-          <Icon name="github" size={16} />
-          GitHub
-        </button>
-      </aside>
-      <section className="finder-main" ref={scroll}>
-        {detail ? (
-          <>
-            <button className="text-action" onClick={() => setDetail(null)}>
-              <Icon name="back" size={16} /> Back to{" "}
-              {filter === "All Projects" ? "projects" : filter.toLowerCase()}
-            </button>
-            <PanelHeading
-              kicker={`Example project / ${detail.category}`}
-              title={detail.name}
-              description={detail.summary}
-            />
-            <Tags items={detail.tags} />
-            <div className="detail-preview">
-              <ProjectPreview project={detail} active={demo} />
-            </div>
-            <div className="panel-actions">
-              <button className="panel-button primary" onClick={() => setDemo(!demo)}>
-                <Icon name="arrow" size={16} />
-                {demo ? "Reset demo" : detail.demoLabel}
-              </button>
-              <a className="panel-button" href={detail.repo} target="_blank" rel="noreferrer">
-                <Icon name="github" size={16} />
-                {detail.reference} on GitHub
-                <Icon name="external" size={14} />
-              </a>
-            </div>
-            {demo && (
-              <p className="demo-result" role="status">
-                {detail.demoResult}
-              </p>
-            )}
-            <div className="detail-text">
-              <section>
-                <h3>Problem</h3>
-                <p>{detail.problem}</p>
-              </section>
-              <section>
-                <h3>Solution</h3>
-                <p>{detail.solution}</p>
-              </section>
-              <section>
-                <h3>Technical implementation</h3>
-                <p>{detail.implementation}</p>
-              </section>
-            </div>
-            <p className="sample-note">
-              <Icon name="info" size={15} /> This is a sample case study. The live demo is a local
-              simulation; the GitHub link is a public reference, not the portfolio owner’s source
-              code.
-            </p>
-          </>
-        ) : (
-          <>
-            <PanelHeading
-              kicker="Project explorer"
-              title={filter}
-              description="Example case studies covering frontend and backend development."
-            />
-            <div className="project-grid">
-              {visible.map((project) => (
-                <button
-                  key={project.id}
-                  className="project-card"
-                  onClick={() => {
-                    setDetail(project);
-                    setDemo(false);
-                  }}
-                >
-                  <ProjectPreview project={project} />
-                  <div className="project-copy">
-                    <div className="project-title">
-                      <h3>{project.name}</h3>
-                      <Icon name="chevron" size={16} />
-                    </div>
-                    <p>{project.summary}</p>
-                    <Tags items={project.tags} />
-                  </div>
-                </button>
-              ))}
-            </div>
-          </>
-        )}
-      </section>
-    </div>
-  );
+  useEffect(() => { if (scroll.current) scroll.current.scrollTop = 0; }, [filter, detail, tab]);
+  const visible = filter !== "Backend";
+  return <div className="finder">
+    <aside className="finder-sidebar" aria-label="Project categories">
+      <span className="sidebar-heading">Favorites</span>
+      {projectNav.map(({ text, icon }) => <button key={text} className={text === filter ? "current" : ""} aria-pressed={text === filter} onClick={() => { setFilter(text); setDetail(false); }}><Icon name={icon} size={16}/>{text}</button>)}
+      <span className="sidebar-heading finder-secondary">Repositories</span>
+      <button onClick={() => openApp("github")}><Icon name="github" size={16}/> GitHub</button>
+    </aside>
+    <section className="finder-main" ref={scroll}>
+      {detail ? <>
+        <button className="text-action" onClick={() => setDetail(false)}><Icon name="back" size={16}/> Back to projects</button>
+        <PanelHeading kicker="Featured thesis · 2026 · Full-stack developer" title="VisionCore" description="Smart Scheduling. Stronger Teams. An intelligent web-based scheduling and absence replacement system."/>
+        <Tags items={["Full-stack", "Scheduling", "Greedy", "Backtracking", "Heuristics", "Genetic Algorithm"]}/>
+        <nav className="vision-tabs" aria-label="VisionCore case study sections">
+          {(["overview", "demo", "architecture", "results"] as const).map(item => <button key={item} className={tab === item ? "selected" : ""} onClick={() => setTab(item)}>{item[0].toUpperCase() + item.slice(1)}</button>)}
+        </nav>
+        {tab === "overview" && <div className="vision-content">
+          <img className="vision-poster" src="/visioncore/poster.png" alt="VisionCore thesis expo poster showing the scheduling interface and leave requests"/>
+          <div className="detail-text"><section><h3>The challenge</h3><p>Manual employee scheduling is time-consuming, absences can leave shifts uncovered, and uneven assignments affect workload fairness.</p></section><section><h3>The solution</h3><p>VisionCore generates schedules under defined constraints, identifies replacement candidates for absences, and supports more balanced workload distribution.</p></section><section><h3>My role · Full-stack developer</h3><p>I contributed across frontend development, backend logic, database integration, scheduling algorithms, testing, and technical documentation as part of the thesis project.</p></section></div>
+        </div>}
+        {tab === "demo" && <div className="vision-content"><h3>VisionCore audiovisual presentation</h3><video className="vision-video" controls preload="metadata" poster="/visioncore/poster.png"><source src="/visioncore/demo.mp4" type="video/mp4"/>Your browser does not support HTML5 video.</video><p className="sample-note">Compressed presentation video for faster loading. The video demonstrates the thesis project; it is not an interactive production deployment.</p></div>}
+        {tab === "architecture" && <div className="vision-content"><div className="detail-text"><section><h3>Full-stack implementation</h3><p>VisionCore combines a web user interface for schedules and absence workflows, server-side scheduling logic, and persistent employee and shift data. My contribution spanned these application layers.</p></section><section><h3>Algorithmic approach</h3><p>Greedy selection builds initial assignments; backtracking checks assignment constraints; heuristic methods select absence replacements; and a genetic approach explores workload balance across candidate schedules.</p></section><section><h3>Core workflow</h3><p>Scheduling inputs → apply constraints → generate candidate assignments → evaluate coverage and fairness → produce schedules and replacement recommendations.</p></section></div><p className="sample-note">Architecture is summarized from the thesis materials. Internal backend source code is not publicly distributed.</p></div>}
+        {tab === "results" && <div className="vision-content"><div className="vision-stats"><div><strong>13.11s</strong><span>Weekly schedule generation in the reported test</span></div><div><strong>92.86%</strong><span>Automated absence replacement success</span></div><div><strong>76.99%</strong><span>Manual replacement comparison</span></div><div><strong>26 → 4</strong><span>Unfilled shifts (84.62% reduction)</span></div><div><strong>7.47 → 3.26</strong><span>Workload standard deviation</span></div><div><strong>50</strong><span>System evaluation participants</span></div></div><p className="sample-note">Figures are reported thesis evaluation results, not guarantees of performance in every scheduling scenario. Presentation slides contain differing evaluation averages (3.83/5 and 4.10/5), so neither is shown as a definitive overall score here.</p></div>}
+      </> : <>
+        <PanelHeading kicker="Project explorer" title={filter} description={visible ? "Featured software engineering work and thesis case studies." : "Backend implementation details are available within the VisionCore case study."}/>
+        {visible && <div className="project-grid"><button className="project-card" onClick={() => { setDetail(true); setTab("overview"); }}><div className="vision-card-image"><img src="/visioncore/poster.png" alt="VisionCore project poster"/></div><div className="project-copy"><div className="project-title"><h3>VisionCore</h3><Icon name="chevron" size={16}/></div><p>Full-stack intelligent shift scheduling, absence replacement, and workload balancing.</p><Tags items={["Full-stack", "Algorithms", "Thesis · 2026"]}/></div></button></div>}
+      </>}
+    </section>
+  </div>;
 }
 
 const certificates = [
@@ -853,7 +641,7 @@ function Terminal({ openApp }: { openApp: OpenApp }) {
     const name = APPS.find(({ id }) => id === app)?.name;
     const response =
       lower === "help"
-        ? "help      Show available commands\nabout     Open the developer profile\nprojects  Browse example projects\nskills    Open the tech stack\ncontact   Show contact details\nclear     Clear terminal history"
+        ? "help      Show available commands\nabout     Open the developer profile\nprojects  Browse projects\nskills    Open the tech stack\ncontact   Show contact details\nclear     Clear terminal history"
         : name
           ? `Opening ${name}.app…`
           : `Command not found: ${value}. Type “help” to list commands.`;
@@ -922,33 +710,7 @@ function Terminal({ openApp }: { openApp: OpenApp }) {
 }
 
 function GitHub() {
-  return (
-    <div className="panel-page">
-      <PanelHeading
-        kicker="Developer repositories"
-        title="GitHub"
-        description="Public open-source repositories related to the example projects. These are reference links, not personal contributions."
-      />
-      <div className="repository-list">
-        {projects.map((project) => (
-          <a
-            className="repository"
-            key={project.id}
-            href={project.repo}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <Icon name="branch" size={20} />
-            <div>
-              <strong>{project.reference}</strong>
-              <span>Reference for {project.name}</span>
-            </div>
-            <Icon name="external" size={16} />
-          </a>
-        ))}
-      </div>
-    </div>
-  );
+  return <div className="panel-page"><PanelHeading kicker="Developer repositories" title="GitHub" description="My public development profile and repositories."/><div className="repository-list"><a className="repository" href="https://github.com/francmaki2" target="_blank" rel="noreferrer"><Icon name="github" size={20}/><div><strong>francmaki2 on GitHub</strong><span>Explore public repositories and source code</span></div><Icon name="external" size={16}/></a></div><p className="sample-note">VisionCore thesis backend source is not published through this portfolio.</p></div>;
 }
 
 export function AppContent({ id, openApp }: { id: AppId; openApp: OpenApp }) {
