@@ -2316,3 +2316,7 @@
 .resume-pdf-fallback {margin:0;text-align:center;color:var(--soft);font-size:12px;}
 .resume-pdf-fallback a {color:var(--primary);text-decoration:underline;}
 .panel-actions a.panel-button {display:inline-flex;align-items:center;gap:7px;text-decoration:none;}
+
+/* Contact app: spacing for multiple contact methods */
+.contact-links { display: grid; gap: 9px; }
+.contact-card .panel-button { flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; }

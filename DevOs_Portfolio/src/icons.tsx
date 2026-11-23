@@ -95,6 +95,9 @@ const paths: Record<string, ReactNode> = {
       <path d="m4 7 8 6 8-6" />
     </>
   ),
+  phone: <path d="M22 16.9v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7l.5 3a2 2 0 0 1-.6 1.8L7.1 10a16 16 0 0 0 6.9 6.9l1.5-1.9a2 2 0 0 1 1.8-.6l3 .5a2 2 0 0 1 1.7 2Z" />,
+  linkedin: <><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7m0-10v.1M12 17v-7m0 3a3 3 0 0 1 6 0v4"/></>,
+  facebook: <path d="M15 21v-8h3l.5-4H15V7c0-1 .5-1.5 1.5-1.5H19V2.2A22 22 0 0 0 16.5 2C13 2 11 4 11 7v2H8v4h3v8" />,
   copy: (
     <>
       <rect x="8" y="8" width="12" height="12" rx="2" />
